@@ -1,50 +1,548 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Deník matky manažerky</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root{
+      --bg:#f5efe7;
+      --card:#fffaf5;
+      --card-2:#f0e3d3;
+      --text:#3e342b;
+      --muted:#7b6d62;
+      --line:#dfcfbf;
+      --accent:#b79267;
+      --accent-dark:#9f7b52;
+      --done:#7f9a7a;
+      --danger:#b96b6b;
+      --shadow:0 10px 30px rgba(80,60,40,0.08);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg,#f8f2eb 0%, #f5efe7 100%);
+      color:var(--text);
+    }
+
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:24px;
+    }
+
+    .hero{
+      background: linear-gradient(135deg, #eadccc 0%, #f8f2ea 50%, #dcc5ab 100%);
+      border-radius:32px;
+      padding:28px;
+      box-shadow:var(--shadow);
+      margin-bottom:20px;
+    }
+
+    .eyebrow{
+      font-size:12px;
+      letter-spacing:0.22em;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+
+    h1{
+      margin:0 0 10px;
+      font-size:42px;
+      line-height:1.05;
+    }
+
+    .sub{
+      margin:0;
+      color:var(--muted);
+      max-width:700px;
+      line-height:1.5;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin:20px 0;
+    }
+
+    .stat{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .stat .label{
+      color:var(--muted);
+      font-size:14px;
+      margin-bottom:8px;
+    }
+
+    .stat .value{
+      font-size:28px;
+      font-weight:bold;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:360px 1fr;
+      gap:18px;
+    }
+
+    .panel{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:28px;
+      padding:20px;
+      box-shadow:var(--shadow);
+    }
+
+    .panel h2{
+      margin:0 0 16px;
+      font-size:22px;
+    }
+
+    .field{
+      margin-bottom:12px;
+    }
+
+    .field label{
+      display:block;
+      font-size:14px;
+      margin-bottom:6px;
+      color:var(--muted);
+    }
+
+    input, select, textarea, button{
+      font:inherit;
+    }
+
+    input, select, textarea{
+      width:100%;
+      padding:14px 15px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--text);
+      outline:none;
+    }
+
+    textarea{
+      min-height:90px;
+      resize:vertical;
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+
+    .btn{
+      border:none;
+      background:var(--accent);
+      color:white;
+      padding:14px 18px;
+      border-radius:18px;
+      cursor:pointer;
+      font-weight:bold;
+      transition:0.2s ease;
+    }
+
+    .btn:hover{
+      background:var(--accent-dark);
+    }
+
+    .btn-secondary{
+      background:#fff;
+      color:var(--text);
+      border:1px solid var(--line);
+    }
+
+    .btn-danger{
+      background:var(--danger);
+    }
+
+    .filters{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:16px;
+    }
+
+    .chip{
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--text);
+      border-radius:999px;
+      padding:10px 14px;
+      cursor:pointer;
+    }
+
+    .chip.active{
+      background:var(--accent);
+      color:#fff;
+      border-color:var(--accent);
+    }
+
+    .search{
+      margin-bottom:16px;
+    }
+
+    .task-list{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .task{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:16px;
+    }
+
+    .task-top{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:flex-start;
+    }
+
+    .task-left{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      flex:1;
+    }
+
+    .checkbox{
+      margin-top:4px;
+      width:20px;
+      height:20px;
+      cursor:pointer;
+    }
+
+    .task-title{
+      margin:0;
+      font-size:19px;
+      font-weight:bold;
+    }
+
+    .task.done .task-title{
+      text-decoration:line-through;
+      color:#9a9087;
+    }
+
+    .meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:8px;
+    }
+
+    .badge{
+      font-size:12px;
+      border-radius:999px;
+      padding:7px 10px;
+      border:1px solid var(--line);
+      background:#faf7f3;
+    }
+
+    .note{
+      margin-top:10px;
+      color:var(--muted);
+      line-height:1.45;
+      white-space:pre-wrap;
+    }
+
+    .deadline{
+      margin-top:10px;
+      font-size:14px;
+      color:var(--muted);
+    }
+
+    .actions{
+      display:flex;
+      gap:8px;
+      flex-shrink:0;
+    }
+
+    .icon-btn{
+      border:none;
+      background:#f6efe8;
+      border:1px solid var(--line);
+      padding:10px 12px;
+      border-radius:14px;
+      cursor:pointer;
+    }
+
+    .empty{
+      text-align:center;
+      padding:40px 20px;
+      color:var(--muted);
+      border:1px dashed var(--line);
+      border-radius:22px;
+      background:#fff;
+    }
+
+    @media (max-width: 900px){
+      .grid{
+        grid-template-columns:1fr;
+      }
+      .stats{
+        grid-template-columns:1fr;
+      }
+      h1{
+        font-size:34px;
+      }
+    }
+  </style>
 </head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Deník matky manažerky</div>
+      <h1>To-do systém pro klidnější hlavu</h1>
+      <p class="sub">
+        Jednoduchý plánovač pro úkoly doma, v práci i pro sebe. Bez chaosu, bez hledání po papírcích, přehledně na jednom místě.
+      </p>
+    </section>
 
-<body style="font-family: Arial; padding: 20px; background: #f5efe7;">
+    <section class="stats">
+      <div class="stat">
+        <div class="label">Čeká na tebe</div>
+        <div class="value" id="pendingCount">0</div>
+      </div>
+      <div class="stat">
+        <div class="label">Splněno</div>
+        <div class="value" id="doneCount">0</div>
+      </div>
+      <div class="stat">
+        <div class="label">Celkem úkolů</div>
+        <div class="value" id="allCount">0</div>
+      </div>
+    </section>
 
-  <h1>Deník matky manažerky</h1>
+    <section class="grid">
+      <div class="panel">
+        <h2>Přidat úkol</h2>
 
-  <input id="taskInput" placeholder="Zadej úkol" />
-  <button onclick="addTask()">Přidat</button>
+        <div class="field">
+          <label for="title">Název úkolu</label>
+          <input id="title" type="text" placeholder="Např. připravit věci do školy" />
+        </div>
 
-  <ul id="taskList"></ul>
+        <div class="row">
+          <div class="field">
+            <label for="category">Kategorie</label>
+            <select id="category">
+              <option>Rodina</option>
+              <option>Práce</option>
+              <option>Domov</option>
+              <option>Já</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="priority">Priorita</label>
+            <select id="priority">
+              <option>Vysoká</option>
+              <option>Střední</option>
+              <option>Nízká</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="dueDate">Termín</label>
+          <input id="dueDate" type="date" />
+        </div>
+
+        <div class="field">
+          <label for="notes">Poznámka</label>
+          <textarea id="notes" placeholder="Např. ovoce, zelenina, svačina, oblečení..."></textarea>
+        </div>
+
+        <button class="btn" onclick="addTask()">Uložit úkol</button>
+      </div>
+
+      <div class="panel">
+        <h2>Moje úkoly</h2>
+
+        <div class="search">
+          <input id="searchInput" type="text" placeholder="Hledat úkol nebo poznámku" oninput="render()" />
+        </div>
+
+        <div class="filters" id="filters">
+          <button class="chip active" data-filter="Vše" onclick="setFilter('Vše')">Vše</button>
+          <button class="chip" data-filter="Rodina" onclick="setFilter('Rodina')">Rodina</button>
+          <button class="chip" data-filter="Práce" onclick="setFilter('Práce')">Práce</button>
+          <button class="chip" data-filter="Domov" onclick="setFilter('Domov')">Domov</button>
+          <button class="chip" data-filter="Já" onclick="setFilter('Já')">Já</button>
+        </div>
+
+        <div class="task-list" id="taskList"></div>
+      </div>
+    </section>
+  </div>
 
   <script>
-    let tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+    const STORAGE_KEY = "dmm_tasks_v2";
+    let currentFilter = "Vše";
+    let tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
 
-    function render() {
-      const list = document.getElementById("taskList");
-      list.innerHTML = "";
-      tasks.forEach((t, i) => {
-        const li = document.createElement("li");
-        li.innerHTML = t + " <button onclick='removeTask(" + i + ")'>❌</button>";
-        list.appendChild(li);
-      });
+    function saveTasks() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
     }
 
     function addTask() {
-      const input = document.getElementById("taskInput");
-      if (!input.value.trim()) return;
-      tasks.push(input.value);
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-      input.value = "";
+      const title = document.getElementById("title").value.trim();
+      const category = document.getElementById("category").value;
+      const priority = document.getElementById("priority").value;
+      const dueDate = document.getElementById("dueDate").value;
+      const notes = document.getElementById("notes").value.trim();
+
+      if (!title) {
+        alert("Zadej název úkolu.");
+        return;
+      }
+
+      const task = {
+        id: Date.now(),
+        title,
+        category,
+        priority,
+        dueDate,
+        notes,
+        done: false
+      };
+
+      tasks.unshift(task);
+      saveTasks();
+
+      document.getElementById("title").value = "";
+      document.getElementById("category").value = "Rodina";
+      document.getElementById("priority").value = "Vysoká";
+      document.getElementById("dueDate").value = "";
+      document.getElementById("notes").value = "";
+
       render();
     }
 
-    function removeTask(i) {
-      tasks.splice(i, 1);
-      localStorage.setItem("tasks", JSON.stringify(tasks));
+    function toggleTask(id) {
+      tasks = tasks.map(task =>
+        task.id === id ? { ...task, done: !task.done } : task
+      );
+      saveTasks();
       render();
+    }
+
+    function deleteTask(id) {
+      if (!confirm("Opravdu chceš tento úkol smazat?")) return;
+      tasks = tasks.filter(task => task.id !== id);
+      saveTasks();
+      render();
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll(".chip").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.filter === filter);
+      });
+      render();
+    }
+
+    function formatDate(dateString) {
+      if (!dateString) return "";
+      const d = new Date(dateString + "T00:00:00");
+      return d.toLocaleDateString("cs-CZ");
+    }
+
+    function daysLeft(dateString) {
+      if (!dateString) return null;
+      const today = new Date();
+      const due = new Date(dateString + "T00:00:00");
+      const startToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      return Math.ceil((due - startToday) / (1000 * 60 * 60 * 24));
+    }
+
+    function priorityColor(priority) {
+      if (priority === "Vysoká") return "#f6e0de";
+      if (priority === "Střední") return "#f4ead5";
+      return "#e6efe2";
+    }
+
+    function render() {
+      const list = document.getElementById("taskList");
+      const search = document.getElementById("searchInput").value.trim().toLowerCase();
+
+      const filtered = tasks.filter(task => {
+        const matchesFilter = currentFilter === "Vše" || task.category === currentFilter;
+        const text = (task.title + " " + task.notes).toLowerCase();
+        const matchesSearch = text.includes(search);
+        return matchesFilter && matchesSearch;
+      });
+
+      document.getElementById("pendingCount").textContent = tasks.filter(t => !t.done).length;
+      document.getElementById("doneCount").textContent = tasks.filter(t => t.done).length;
+      document.getElementById("allCount").textContent = tasks.length;
+
+      if (!filtered.length) {
+        list.innerHTML = '<div class="empty">Zatím tu nic není. Přidej první úkol a vytvoř si svůj klidnější systém.</div>';
+        return;
+      }
+
+      list.innerHTML = filtered.map(task => {
+        const left = daysLeft(task.dueDate);
+        let deadlineText = "";
+
+        if (task.dueDate) {
+          if (left < 0) deadlineText = `Termín byl ${formatDate(task.dueDate)} · po termínu ${Math.abs(left)} dní`;
+          else if (left === 0) deadlineText = `Termín je dnes · ${formatDate(task.dueDate)}`;
+          else deadlineText = `Termín ${formatDate(task.dueDate)} · zbývá ${left} dní`;
+        }
+
+        return `
+          <div class="task ${task.done ? "done" : ""}">
+            <div class="task-top">
+              <div class="task-left">
+                <input class="checkbox" type="checkbox" ${task.done ? "checked" : ""} onchange="toggleTask(${task.id})" />
+                <div>
+                  <p class="task-title">${escapeHtml(task.title)}</p>
+                  <div class="meta">
+                    <span class="badge">${escapeHtml(task.category)}</span>
+                    <span class="badge" style="background:${priorityColor(task.priority)}">${escapeHtml(task.priority)}</span>
+                  </div>
+                  ${task.notes ? `<div class="note">${escapeHtml(task.notes)}</div>` : ""}
+                  ${deadlineText ? `<div class="deadline">${deadlineText}</div>` : ""}
+                </div>
+              </div>
+              <div class="actions">
+                <button class="icon-btn" onclick="deleteTask(${task.id})">🗑️</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function escapeHtml(text) {
+      return text
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
     }
 
     render();
   </script>
-
 </body>
 </html>
