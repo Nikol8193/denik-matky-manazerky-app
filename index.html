@@ -3,43 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Deník matky manažerky</title>
+  <title>Deník matky manažerky – verze 3</title>
   <style>
     :root{
-      --bg:#f5efe7;
+      --bg:#f6efe7;
+      --bg2:#fbf7f2;
       --card:#fffaf5;
-      --card-2:#f0e3d3;
-      --text:#3e342b;
-      --muted:#7b6d62;
-      --line:#dfcfbf;
-      --accent:#b79267;
-      --accent-dark:#9f7b52;
-      --done:#7f9a7a;
-      --danger:#b96b6b;
-      --shadow:0 10px 30px rgba(80,60,40,0.08);
-      --radius:22px;
+      --soft:#f0e3d3;
+      --line:#e1d2c3;
+      --text:#3f342b;
+      --muted:#7a6b5e;
+      --accent:#b89267;
+      --accent-dark:#9e7b54;
+      --danger:#b96d6d;
+      --success:#7f9b7c;
+      --shadow:0 12px 34px rgba(90,65,40,0.08);
+      --radius:24px;
     }
 
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg,#f8f2eb 0%, #f5efe7 100%);
+      font-family:Arial, Helvetica, sans-serif;
       color:var(--text);
+      background:linear-gradient(180deg,var(--bg2) 0%, var(--bg) 100%);
     }
 
     .wrap{
-      max-width:1100px;
+      max-width:1180px;
       margin:0 auto;
       padding:24px;
     }
 
     .hero{
-      background: linear-gradient(135deg, #eadccc 0%, #f8f2ea 50%, #dcc5ab 100%);
+      background:linear-gradient(135deg,#eadccc 0%, #f8f2ea 50%, #dcc5ab 100%);
       border-radius:32px;
-      padding:28px;
+      padding:30px;
       box-shadow:var(--shadow);
-      margin-bottom:20px;
+      margin-bottom:18px;
     }
 
     .eyebrow{
@@ -59,21 +60,21 @@
     .sub{
       margin:0;
       color:var(--muted);
-      max-width:700px;
-      line-height:1.5;
+      max-width:800px;
+      line-height:1.55;
     }
 
     .stats{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
+      grid-template-columns:repeat(4,1fr);
       gap:14px;
-      margin:20px 0;
+      margin:18px 0;
     }
 
     .stat{
       background:var(--card);
       border:1px solid var(--line);
-      border-radius:24px;
+      border-radius:22px;
       padding:18px;
       box-shadow:var(--shadow);
     }
@@ -89,9 +90,16 @@
       font-weight:bold;
     }
 
-    .grid{
+    .main-grid{
       display:grid;
       grid-template-columns:360px 1fr;
+      gap:18px;
+      align-items:start;
+    }
+
+    .stack{
+      display:flex;
+      flex-direction:column;
       gap:18px;
     }
 
@@ -106,6 +114,11 @@
     .panel h2{
       margin:0 0 16px;
       font-size:22px;
+    }
+
+    .panel h3{
+      margin:0 0 12px;
+      font-size:18px;
     }
 
     .field{
@@ -159,21 +172,11 @@
       background:var(--accent-dark);
     }
 
-    .btn-secondary{
-      background:#fff;
-      color:var(--text);
-      border:1px solid var(--line);
-    }
-
-    .btn-danger{
-      background:var(--danger);
-    }
-
     .filters{
       display:flex;
       flex-wrap:wrap;
       gap:8px;
-      margin-bottom:16px;
+      margin-bottom:14px;
     }
 
     .chip{
@@ -192,7 +195,7 @@
     }
 
     .search{
-      margin-bottom:16px;
+      margin-bottom:14px;
     }
 
     .task-list{
@@ -292,10 +295,107 @@
       background:#fff;
     }
 
-    @media (max-width: 900px){
-      .grid{
+    .dashboard-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+      margin-top:18px;
+    }
+
+    .small-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+    }
+
+    .focus-card, .mini-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:16px;
+    }
+
+    .mini-card strong,
+    .focus-card strong{
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .section-title{
+      font-size:15px;
+      color:var(--muted);
+      margin-bottom:10px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+    }
+
+    .schedule-columns{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+    }
+
+    .schedule-col{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:16px;
+    }
+
+    .schedule-item{
+      padding:12px;
+      border-radius:16px;
+      background:#faf6f1;
+      border:1px solid #eee2d6;
+      margin-bottom:10px;
+    }
+
+    .schedule-time{
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:4px;
+    }
+
+    .week-grid, .meal-grid, .business-grid, .clean-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+    }
+
+    .day-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:14px;
+      min-height:96px;
+    }
+
+    .day-card strong{
+      display:block;
+      margin-bottom:8px;
+    }
+
+    .brain{
+      min-height:180px;
+    }
+
+    .save-note{
+      margin-top:10px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    @media (max-width: 980px){
+      .main-grid{
         grid-template-columns:1fr;
       }
+      .dashboard-grid,
+      .schedule-columns,
+      .week-grid,
+      .meal-grid,
+      .business-grid,
+      .clean-grid,
+      .small-grid,
       .stats{
         grid-template-columns:1fr;
       }
@@ -309,9 +409,10 @@
   <div class="wrap">
     <section class="hero">
       <div class="eyebrow">Deník matky manažerky</div>
-      <h1>To-do systém pro klidnější hlavu</h1>
+      <h1>Kompletní systém pro klidnější hlavu</h1>
       <p class="sub">
-        Jednoduchý plánovač pro úkoly doma, v práci i pro sebe. Bez chaosu, bez hledání po papírcích, přehledně na jednom místě.
+        Přehled úkolů, rozvrhu, jídelníčku, podnikání i domácnosti na jednom místě.
+        Ne proto, abys byla dokonalá. Ale aby ses nemusela držet všeho v hlavě.
       </p>
     </section>
 
@@ -328,78 +429,258 @@
         <div class="label">Celkem úkolů</div>
         <div class="value" id="allCount">0</div>
       </div>
+      <div class="stat">
+        <div class="label">Dnešní priority</div>
+        <div class="value">3</div>
+      </div>
     </section>
 
-    <section class="grid">
+    <section class="dashboard-grid">
       <div class="panel">
-        <h2>Přidat úkol</h2>
-
-        <div class="field">
-          <label for="title">Název úkolu</label>
-          <input id="title" type="text" placeholder="Např. připravit věci do školy" />
-        </div>
-
-        <div class="row">
-          <div class="field">
-            <label for="category">Kategorie</label>
-            <select id="category">
-              <option>Rodina</option>
-              <option>Práce</option>
-              <option>Domov</option>
-              <option>Já</option>
-            </select>
+        <h2>3 priority dne</h2>
+        <div class="small-grid">
+          <div class="focus-card">
+            <strong>Práce</strong>
+            <div id="focusWork"></div>
           </div>
-
-          <div class="field">
-            <label for="priority">Priorita</label>
-            <select id="priority">
-              <option>Vysoká</option>
-              <option>Střední</option>
-              <option>Nízká</option>
-            </select>
+          <div class="focus-card">
+            <strong>Domov</strong>
+            <div id="focusHome"></div>
+          </div>
+          <div class="focus-card">
+            <strong>Já</strong>
+            <div id="focusMe"></div>
           </div>
         </div>
-
-        <div class="field">
-          <label for="dueDate">Termín</label>
-          <input id="dueDate" type="date" />
-        </div>
-
-        <div class="field">
-          <label for="notes">Poznámka</label>
-          <textarea id="notes" placeholder="Např. ovoce, zelenina, svačina, oblečení..."></textarea>
-        </div>
-
-        <button class="btn" onclick="addTask()">Uložit úkol</button>
       </div>
 
       <div class="panel">
-        <h2>Moje úkoly</h2>
+        <h2>Co mi běží hlavou</h2>
+        <textarea id="brainDump" class="brain" placeholder="Sem si vypiš všechno, co ti běží hlavou..."></textarea>
+        <button class="btn" style="margin-top:12px" onclick="saveBrainDump()">Uložit poznámku</button>
+        <div class="save-note">Uloží se do tohoto prohlížeče.</div>
+      </div>
+    </section>
 
-        <div class="search">
-          <input id="searchInput" type="text" placeholder="Hledat úkol nebo poznámku" oninput="render()" />
+    <section class="main-grid" style="margin-top:18px;">
+      <div class="stack">
+        <div class="panel">
+          <h2>Přidat úkol</h2>
+
+          <div class="field">
+            <label for="title">Název úkolu</label>
+            <input id="title" type="text" placeholder="Např. připravit věci do školy" />
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="category">Kategorie</label>
+              <select id="category">
+                <option>Rodina</option>
+                <option>Práce</option>
+                <option>Domov</option>
+                <option>Já</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="priority">Priorita</label>
+              <select id="priority">
+                <option>Vysoká</option>
+                <option>Střední</option>
+                <option>Nízká</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="dueDate">Termín</label>
+            <input id="dueDate" type="date" />
+          </div>
+
+          <div class="field">
+            <label for="notes">Poznámka</label>
+            <textarea id="notes" placeholder="Např. co koupit, nachystat nebo zařídit..."></textarea>
+          </div>
+
+          <button class="btn" onclick="addTask()">Uložit úkol</button>
         </div>
 
-        <div class="filters" id="filters">
-          <button class="chip active" data-filter="Vše" onclick="setFilter('Vše')">Vše</button>
-          <button class="chip" data-filter="Rodina" onclick="setFilter('Rodina')">Rodina</button>
-          <button class="chip" data-filter="Práce" onclick="setFilter('Práce')">Práce</button>
-          <button class="chip" data-filter="Domov" onclick="setFilter('Domov')">Domov</button>
-          <button class="chip" data-filter="Já" onclick="setFilter('Já')">Já</button>
+        <div class="panel">
+          <h2>Denní rozvrh</h2>
+          <div class="schedule-columns">
+            <div class="schedule-col">
+              <h3>Ráno</h3>
+              <div class="schedule-item">
+                <div class="schedule-time">06:30</div>
+                <div>Klidný start a příprava</div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-time">07:00</div>
+                <div>Snídaně, svačiny, škola</div>
+              </div>
+            </div>
+            <div class="schedule-col">
+              <h3>Odpoledne</h3>
+              <div class="schedule-item">
+                <div class="schedule-time">15:30</div>
+                <div>Děti, svačina, kroužky</div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-time">17:00</div>
+                <div>Domov a provozní věci</div>
+              </div>
+            </div>
+            <div class="schedule-col">
+              <h3>Večer</h3>
+              <div class="schedule-item">
+                <div class="schedule-time">20:00</div>
+                <div>Příprava na další den</div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-time">21:00</div>
+                <div>Zpomalit a vypnout hlavu</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="panel">
+          <h2>Moje úkoly</h2>
+
+          <div class="search">
+            <input id="searchInput" type="text" placeholder="Hledat úkol nebo poznámku" oninput="render()" />
+          </div>
+
+          <div class="filters">
+            <button class="chip active" data-filter="Vše" onclick="setFilter('Vše')">Vše</button>
+            <button class="chip" data-filter="Rodina" onclick="setFilter('Rodina')">Rodina</button>
+            <button class="chip" data-filter="Práce" onclick="setFilter('Práce')">Práce</button>
+            <button class="chip" data-filter="Domov" onclick="setFilter('Domov')">Domov</button>
+            <button class="chip" data-filter="Já" onclick="setFilter('Já')">Já</button>
+          </div>
+
+          <div class="task-list" id="taskList"></div>
         </div>
 
-        <div class="task-list" id="taskList"></div>
+        <div class="panel">
+          <h2>Týdenní plán</h2>
+          <div class="week-grid" id="weekPlan"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Jídelníček</h2>
+          <div class="meal-grid" id="mealPlan"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Podnikání</h2>
+          <div class="business-grid" id="businessPlan"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Úklidový plán</h2>
+          <div class="clean-grid" id="cleanPlan"></div>
+        </div>
       </div>
     </section>
   </div>
 
   <script>
-    const STORAGE_KEY = "dmm_tasks_v2";
+    const STORAGE_KEY = "dmm_tasks_v3";
+    const BRAIN_KEY = "dmm_brain_dump_v3";
     let currentFilter = "Vše";
+
     let tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+
+    const focus = {
+      work: "Jedna důležitá věc pro práci nebo podnikání.",
+      home: "Jedna věc, která uleví domovu.",
+      me: "Jedna malá věc pro sebe."
+    };
+
+    const weekPlan = [
+      { day: "Pondělí", text: "Práce + rychlý reset kuchyně" },
+      { day: "Úterý", text: "Kroužky + nákup" },
+      { day: "Středa", text: "Administrativa a resty" },
+      { day: "Čtvrtek", text: "Rodina + příprava jídla" },
+      { day: "Pátek", text: "Dodělat minimum a zvolnit" },
+      { day: "Sobota", text: "Rodina a výlet" },
+      { day: "Neděle", text: "Plán týdne + chystání" }
+    ];
+
+    const mealPlan = [
+      { day: "Pondělí", text: "Těstoviny se zeleninou" },
+      { day: "Úterý", text: "Polévka + pečivo" },
+      { day: "Středa", text: "Rýže, tofu, zelenina" },
+      { day: "Čtvrtek", text: "Pomazánka + vajíčka" },
+      { day: "Pátek", text: "Domácí pizza" },
+      { day: "Sobota", text: "Výletní svačiny" },
+      { day: "Neděle", text: "Pečené brambory + salát" }
+    ];
+
+    const businessPlan = [
+      { day: "Obsah", text: "1 příspěvek + 1 stories" },
+      { day: "Emailing", text: "Mrknout na automatizace" },
+      { day: "Reklama", text: "Zkontrolovat výkon kampaně" },
+      { day: "Produkt", text: "Posunout Deník matky manažerky" }
+    ];
+
+    const cleanPlan = [
+      { day: "Pondělí", text: "Kuchyň" },
+      { day: "Úterý", text: "Koupelna" },
+      { day: "Středa", text: "Prádlo a skříně" },
+      { day: "Čtvrtek", text: "Povrchy a pracovní stůl" },
+      { day: "Pátek", text: "Rychlý reset domova" },
+      { day: "Sobota", text: "Jen minimum" },
+      { day: "Neděle", text: "Příprava na nový týden" }
+    ];
 
     function saveTasks() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+    }
+
+    function saveBrainDump() {
+      const value = document.getElementById("brainDump").value;
+      localStorage.setItem(BRAIN_KEY, value);
+      alert("Poznámka uložena.");
+    }
+
+    function loadStaticSections() {
+      document.getElementById("focusWork").textContent = focus.work;
+      document.getElementById("focusHome").textContent = focus.home;
+      document.getElementById("focusMe").textContent = focus.me;
+      document.getElementById("brainDump").value = localStorage.getItem(BRAIN_KEY) || "";
+
+      document.getElementById("weekPlan").innerHTML = weekPlan.map(item => `
+        <div class="day-card">
+          <strong>${item.day}</strong>
+          <div>${item.text}</div>
+        </div>
+      `).join("");
+
+      document.getElementById("mealPlan").innerHTML = mealPlan.map(item => `
+        <div class="day-card">
+          <strong>${item.day}</strong>
+          <div>${item.text}</div>
+        </div>
+      `).join("");
+
+      document.getElementById("businessPlan").innerHTML = businessPlan.map(item => `
+        <div class="day-card">
+          <strong>${item.day}</strong>
+          <div>${item.text}</div>
+        </div>
+      `).join("");
+
+      document.getElementById("cleanPlan").innerHTML = cleanPlan.map(item => `
+        <div class="day-card">
+          <strong>${item.day}</strong>
+          <div>${item.text}</div>
+        </div>
+      `).join("");
     }
 
     function addTask() {
@@ -437,9 +718,7 @@
     }
 
     function toggleTask(id) {
-      tasks = tasks.map(task =>
-        task.id === id ? { ...task, done: !task.done } : task
-      );
+      tasks = tasks.map(task => task.id === id ? { ...task, done: !task.done } : task);
       saveTasks();
       render();
     }
@@ -477,6 +756,15 @@
       if (priority === "Vysoká") return "#f6e0de";
       if (priority === "Střední") return "#f4ead5";
       return "#e6efe2";
+    }
+
+    function escapeHtml(text) {
+      return text
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
     }
 
     function render() {
@@ -533,15 +821,7 @@
       }).join("");
     }
 
-    function escapeHtml(text) {
-      return text
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
-
+    loadStaticSections();
     render();
   </script>
 </body>
