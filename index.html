@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Deník matky manažerky – verze 4</title>
+  <title>Deník matky manažerky – verze 4.1</title>
   <style>
     :root{
       --bg:#f6efe7;
@@ -15,13 +15,11 @@
       --muted:#7a6b5e;
       --accent:#b89267;
       --accent-dark:#9e7b54;
-      --danger:#b96d6d;
-      --success:#7f9b7c;
       --shadow:0 12px 34px rgba(90,65,40,0.08);
-      --radius:24px;
     }
 
     *{box-sizing:border-box}
+
     body{
       margin:0;
       font-family:Arial, Helvetica, sans-serif;
@@ -66,7 +64,7 @@
 
     .stats{
       display:grid;
-      grid-template-columns:repeat(4,1fr);
+      grid-template-columns:repeat(4, minmax(0, 1fr));
       gap:14px;
       margin:18px 0;
     }
@@ -77,6 +75,7 @@
       border-radius:22px;
       padding:18px;
       box-shadow:var(--shadow);
+      min-width:0;
     }
 
     .stat .label{
@@ -88,11 +87,12 @@
     .stat .value{
       font-size:28px;
       font-weight:bold;
+      word-break:break-word;
     }
 
     .main-grid{
       display:grid;
-      grid-template-columns:360px 1fr;
+      grid-template-columns:360px minmax(0, 1fr);
       gap:18px;
       align-items:start;
     }
@@ -101,6 +101,7 @@
       display:flex;
       flex-direction:column;
       gap:18px;
+      min-width:0;
     }
 
     .panel{
@@ -109,16 +110,20 @@
       border-radius:28px;
       padding:20px;
       box-shadow:var(--shadow);
+      min-width:0;
+      overflow:hidden;
     }
 
     .panel h2{
       margin:0 0 16px;
       font-size:22px;
+      line-height:1.2;
     }
 
     .panel h3{
       margin:0 0 12px;
       font-size:18px;
+      line-height:1.2;
     }
 
     .field{
@@ -138,6 +143,7 @@
 
     input, select, textarea{
       width:100%;
+      min-width:0;
       padding:14px 15px;
       border-radius:16px;
       border:1px solid var(--line);
@@ -149,6 +155,8 @@
     textarea{
       min-height:90px;
       resize:vertical;
+      overflow-wrap:anywhere;
+      word-break:break-word;
     }
 
     .tiny-area{
@@ -219,6 +227,7 @@
       display:flex;
       flex-direction:column;
       gap:12px;
+      min-width:0;
     }
 
     .task{
@@ -226,6 +235,7 @@
       border:1px solid var(--line);
       border-radius:22px;
       padding:16px;
+      min-width:0;
     }
 
     .task-top{
@@ -240,6 +250,7 @@
       gap:12px;
       align-items:flex-start;
       flex:1;
+      min-width:0;
     }
 
     .checkbox{
@@ -247,12 +258,15 @@
       width:20px;
       height:20px;
       cursor:pointer;
+      flex-shrink:0;
     }
 
     .task-title{
       margin:0;
       font-size:19px;
       font-weight:bold;
+      overflow-wrap:anywhere;
+      word-break:break-word;
     }
 
     .task.done .task-title{
@@ -280,12 +294,15 @@
       color:var(--muted);
       line-height:1.45;
       white-space:pre-wrap;
+      overflow-wrap:anywhere;
+      word-break:break-word;
     }
 
     .deadline{
       margin-top:10px;
       font-size:14px;
       color:var(--muted);
+      overflow-wrap:anywhere;
     }
 
     .actions{
@@ -314,14 +331,14 @@
 
     .dashboard-grid{
       display:grid;
-      grid-template-columns:repeat(2,1fr);
+      grid-template-columns:repeat(2, minmax(0, 1fr));
       gap:18px;
       margin-top:18px;
     }
 
     .small-grid{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
+      grid-template-columns:repeat(3, minmax(0, 1fr));
       gap:12px;
     }
 
@@ -330,6 +347,7 @@
       border:1px solid var(--line);
       border-radius:20px;
       padding:16px;
+      min-width:0;
     }
 
     .focus-card strong{
@@ -339,7 +357,7 @@
 
     .schedule-columns{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
+      grid-template-columns:repeat(3, minmax(0, 1fr));
       gap:14px;
     }
 
@@ -348,6 +366,7 @@
       border:1px solid var(--line);
       border-radius:22px;
       padding:16px;
+      min-width:0;
     }
 
     .schedule-item{
@@ -356,6 +375,8 @@
       background:#faf6f1;
       border:1px solid #eee2d6;
       margin-bottom:10px;
+      overflow-wrap:anywhere;
+      word-break:break-word;
     }
 
     .schedule-time{
@@ -366,7 +387,7 @@
 
     .planner-grid{
       display:grid;
-      grid-template-columns:repeat(4,1fr);
+      grid-template-columns:repeat(4, minmax(0, 1fr));
       gap:12px;
     }
 
@@ -376,11 +397,13 @@
       border-radius:18px;
       padding:14px;
       min-height:160px;
+      min-width:0;
     }
 
     .day-card strong{
       display:block;
       margin-bottom:10px;
+      overflow-wrap:anywhere;
     }
 
     .brain{
@@ -404,15 +427,77 @@
       .main-grid{
         grid-template-columns:1fr;
       }
+
       .dashboard-grid,
-      .schedule-columns,
-      .planner-grid,
       .small-grid,
       .stats{
         grid-template-columns:1fr;
       }
+
+      .schedule-columns{
+        grid-template-columns:1fr;
+      }
+
+      .planner-grid{
+        grid-template-columns:1fr 1fr;
+      }
+
       h1{
         font-size:34px;
+      }
+    }
+
+    @media (max-width: 640px){
+      .wrap{
+        padding:16px;
+      }
+
+      .hero{
+        padding:22px;
+        border-radius:24px;
+      }
+
+      h1{
+        font-size:30px;
+      }
+
+      .panel{
+        padding:16px;
+        border-radius:22px;
+      }
+
+      .panel h2{
+        font-size:20px;
+      }
+
+      .panel h3{
+        font-size:17px;
+      }
+
+      .planner-grid{
+        grid-template-columns:1fr;
+      }
+
+      .row{
+        grid-template-columns:1fr;
+      }
+
+      .action-row{
+        flex-direction:column;
+      }
+
+      .btn,
+      .btn-outline{
+        width:100%;
+      }
+
+      .task-top{
+        flex-direction:column;
+      }
+
+      .actions{
+        width:100%;
+        justify-content:flex-end;
       }
     }
   </style>
@@ -552,8 +637,8 @@
             </div>
             <div class="schedule-col">
               <h3>Večer</h3>
-              <div class="schedule-time">20:00</div>
               <div class="schedule-item">
+                <div class="schedule-time">20:00</div>
                 <div>Příprava na další den</div>
               </div>
               <div class="schedule-item">
@@ -628,13 +713,13 @@
   </div>
 
   <script>
-    const STORAGE_KEY = "dmm_tasks_v4";
-    const BRAIN_KEY = "dmm_brain_dump_v4";
-    const FOCUS_KEY = "dmm_focus_v4";
-    const WEEK_KEY = "dmm_week_plan_v4";
-    const MEAL_KEY = "dmm_meal_plan_v4";
-    const BUSINESS_KEY = "dmm_business_plan_v4";
-    const CLEAN_KEY = "dmm_clean_plan_v4";
+    const STORAGE_KEY = "dmm_tasks_v41";
+    const BRAIN_KEY = "dmm_brain_dump_v41";
+    const FOCUS_KEY = "dmm_focus_v41";
+    const WEEK_KEY = "dmm_week_plan_v41";
+    const MEAL_KEY = "dmm_meal_plan_v41";
+    const BUSINESS_KEY = "dmm_business_plan_v41";
+    const CLEAN_KEY = "dmm_clean_plan_v41";
 
     let currentFilter = "Vše";
     let tasks = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
